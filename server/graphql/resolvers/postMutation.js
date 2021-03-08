@@ -9,11 +9,13 @@ export default {
             const req = authorize(context.req)
             const post = new Post({
                 title: args.data.title,
+                cover: args.data.cover || null,
                 content: args.data.content,
                 summary: args.data.summary || args.data.content.slice(0, 200),
                 author: req._id,
                 category: args.data.category || [],
-                status: args.data.status || "PUBLIC"
+                status: args.data.status || "PUBLIC",
+                wikipedia_url: args.data.wikipedia_url || null
             })
             const result = await post.save()
             if (!result) {

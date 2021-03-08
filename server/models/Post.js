@@ -7,6 +7,9 @@ const postSchema = mongoose.Schema({
         type: String,
         maxlength: 100
     },
+    cover: {
+        type: String,
+    },
     summary: {
         type: String,
         maxlength: 1000
@@ -28,6 +31,9 @@ const postSchema = mongoose.Schema({
         type: String,
         enum: ["DRAFT", "PUBLIC"],
         default: "DRAFT"
+    },
+    wikipedia_url: {
+        type: String
     }
 }, { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } })
 

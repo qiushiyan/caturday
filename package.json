@@ -1,17 +1,19 @@
 {
-  "name": "awesomer",
+  "name": "aturday",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "server": "nodemon -r esm server/server.js",
     "client": "yarn --cwd client dev",
-    "start": "concurrently \"yarn run server\" \"yarn run client\""
+    "start": "concurrently \"yarn run server\" \"yarn run client\"",
+    "cat": "node -r esm server/mockData/api.js"
   },
-  "repository": "https://github.com/enixam/awesomer",
+  "repository": "https://github.com/enixam/caturday",
   "author": "Qiushi Yan",
   "license": "MIT",
   "dependencies": {
     "apollo-server-express": "2.16.1",
+    "axios": "^0.21.1",
     "bcrypt": "5.0.0",
     "concurrently": "5.3.0",
     "dotenv": "8.2.0",

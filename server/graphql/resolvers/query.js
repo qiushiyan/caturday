@@ -1,7 +1,9 @@
 import User from "../../models/User"
+import Category from "../../models/Category"
+import Post from "../../models/Post"
 import { AuthenticationError } from "apollo-server-express"
 import authorize from "../../utils/isAuth"
-import Category from "../../models/Category"
+
 
 export default {
     Query: {
@@ -26,6 +28,14 @@ export default {
                 return { _id: req._id, email: req.email, token: req.token }
             } catch (err) {
                 throw new AuthenticationError(err.message)
+            }
+        },
+        getAllPosts: async (parent, args, context, info) => {
+            try {
+                const posts = Post.find({})
+                return posts
+            } catch (err) {
+                throw err
             }
         },
         getAllCategories: async (parent, args, context, info) => {

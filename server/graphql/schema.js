@@ -4,6 +4,7 @@ const typeDefs = gql`
     type Query {
         user(id: ID!): User!
         isAuth: User!,
+        getAllPosts: [Post!]
         getAllCategories: [Category!]
         getCategoryByID(id: ID!): Category!
     }
@@ -12,7 +13,7 @@ const typeDefs = gql`
         signUp(data: AuthInput!): User!
         signIn(data: AuthInput!): User!
         updateProfile(data: profileInput!, id: ID!): User!
-        createPost(data: postInput): Post!
+        createPost(data: postInput!): Post!
         createCategory(name: String!): Category!
     }
 
@@ -29,6 +30,7 @@ const typeDefs = gql`
     type Post {
         _id: ID!
         title: String!
+        cover: String
         summary: String!
         content: String!
         created_at: String!
@@ -36,6 +38,7 @@ const typeDefs = gql`
         author: User!
         category: [Category!]
         status: PostStatus!
+        wikipedia_url: String
     }
 
     type Category {
@@ -64,10 +67,12 @@ const typeDefs = gql`
 
     input postInput {
         title: String!
+        cover: String
         content: String!
         summary: String
         status: PostStatus
         category: [ID!]
+        wikipedia_url: String
     }
 `
 export default typeDefs
