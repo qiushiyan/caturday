@@ -4,9 +4,9 @@ const typeDefs = gql`
     type Query {
         user(id: ID!): User!
         isAuth: User!,
-        getAllPosts: [Post!]
+        getAllPosts(sortBy: SortByInput, queryBy: [QueryByInput]): [Post!]
         getAllCategories: [Category!]
-        getCategoryByID(id: ID!, sortBy: SortByInput, queryBy: QueryByInput): Category!
+        getCategoryByID(id: ID!): Category!
     }
 
     type Mutation {

@@ -4,4 +4,14 @@ const userOwnership = (req, value) => {
     } else return true
 }
 
-export { userOwnership }
+const sortArgsHelper = (sortByInput) => {
+    let sortArgs = {
+        sortBy: sortByInput.sortBy || "_id",
+        order: sortByInput.order || "asc",
+        limit: sortByInput.limit || 10,
+        skip: sortByInput.skip || 0
+    }
+    return sortArgs
+}
+
+export { sortArgsHelper, userOwnership }

@@ -3,6 +3,7 @@ import Category from "../../models/Category"
 import Post from "../../models/Post"
 import { AuthenticationError } from "apollo-server-express"
 import authorize from "../../utils/isAuth"
+import { sortArgsHelper } from "../../utils/tools"
 
 
 export default {
@@ -30,9 +31,20 @@ export default {
                 throw new AuthenticationError(err.message)
             }
         },
-        getAllPosts: async (parent, args, context, info) => {
+        getAllPosts: async (parent, { sortBy, queryBy }, context, info) => {
             try {
-                const posts = Post.find({})
+                const sortArgs = sortArgsHelper(sortBy)
+                let queryArgs = {}
+                if (queryBy) { // an array of objects
+                    queryBy.forEach(item => {
+                        queryArgs[item.key] = item.value
+                    })
+                }
+                const posts = await Post
+                    .find(queryArgs)
+                    .sort([[sortArgs.sortBy, sortArgs.order]])
+                    .skip(sortArgs.skip)
+                    .limit(sortArgs.limit)
                 return posts
             } catch (err) {
                 throw err
@@ -40,7 +52,10 @@ export default {
         },
         getAllCategories: async (parent, args, context, info) => {
             try {
+
+
                 const categories = Category.find({})
+
                 return categories
             } catch (err) {
                 throw err
