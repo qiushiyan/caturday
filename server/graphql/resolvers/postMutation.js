@@ -11,7 +11,7 @@ export default {
                 title: args.data.title,
                 cover: args.data.cover || null,
                 content: args.data.content,
-                summary: args.data.summary || args.data.content.slice(0, 200),
+                summary: args.data.summary || args.data.content.slice(0, 100),
                 author: req._id,
                 category: args.data.category || [],
                 status: args.data.status || "PUBLIC",

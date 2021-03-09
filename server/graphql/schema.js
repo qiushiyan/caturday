@@ -6,7 +6,7 @@ const typeDefs = gql`
         isAuth: User!,
         getAllPosts: [Post!]
         getAllCategories: [Category!]
-        getCategoryByID(id: ID!): Category!
+        getCategoryByID(id: ID!, sortBy: SortByInput, queryBy: QueryByInput): Category!
     }
 
     type Mutation {
@@ -39,6 +39,17 @@ const typeDefs = gql`
         category: [Category!]
         status: PostStatus!
         wikipedia_url: String
+    }
+    input SortByInput {
+        sortBy: String
+        order: String
+        limit: Int
+        skip: Int
+    }
+
+    input QueryByInput {
+        key: String!
+        value: String!
     }
 
     type Category {

@@ -1,0 +1,20 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/enixam/caturday",
+  "author": "Qiushi Yan",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-express": "2.16.1",
+    "axios": "^0.21.1",
+    "bcrypt": "5.0.0",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "graphql": "^15.5.0",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "5.10.0",
+    "validator": "13.1.1"
+  },
+  "devDependencies": {}
+}
