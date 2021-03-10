@@ -5,16 +5,22 @@ const typeDefs = gql`
         user(id: ID!): User!
         isAuth: User!,
         getAllPosts(sortBy: SortByInput, queryBy: [QueryByInput]): [Post!]
+        getPostByID(id: ID!): Post
         getAllCategories: [Category!]
         getCategoryByID(id: ID!): Category!
+
     }
 
     type Mutation {
         signUp(data: AuthInput!): User!
         signIn(data: AuthInput!): User!
-        updateProfile(data: profileInput!, id: ID!): User!
-        createPost(data: postInput!): Post!
+        updateProfile(data: ProfileInput!, id: ID!): User!
+        createPost(data: CreatePostInput!): Post!
+        updatePost(id: ID!, update: UpdatePostInput): Post!
+        deletePost(id: ID!): Boolean
         createCategory(name: String!): Category!
+        updateCategory(id: ID!, name: String!): Category!
+        deleteCategory(id: ID!): Boolean
     }
 
     type User {
@@ -23,7 +29,7 @@ const typeDefs = gql`
         password: String!
         name: String!
         token: String!
-        post: [Post!]!
+        post(sortBy: SortByInput): [Post]!
         category: [Category!]!
     }
 
@@ -36,9 +42,10 @@ const typeDefs = gql`
         created_at: String!
         updated_at: String!
         author: User!
-        category: [Category!]
+        category: [Category!]!
         status: PostStatus!
         wikipedia_url: String
+        related: [Post]!
     }
     input SortByInput {
         sortBy: String
@@ -50,6 +57,16 @@ const typeDefs = gql`
     input QueryByInput {
         key: String!
         value: String!
+    }
+
+    input UpdatePostInput {
+        title: String
+        cover: String
+        summary: String
+        content: String
+        category: [ID!]
+        status: PostStatus
+        wikipedia_url: String
     }
 
     type Category {
@@ -70,13 +87,13 @@ const typeDefs = gql`
         name: String
     }
 
-    input profileInput {
+    input ProfileInput {
         email: String,
         password: String,
         name: String
     }
 
-    input postInput {
+    input CreatePostInput {
         title: String!
         cover: String
         content: String!

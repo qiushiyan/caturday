@@ -1,6 +1,7 @@
 import User from "../../models/User"
 import Category from "../../models/Category"
 import { ApolloError } from "apollo-server-errors"
+import Post from "../../models/Post"
 
 export default {
     Post: {
@@ -26,5 +27,18 @@ export default {
                 throw new ApolloError(err.message)
             }
         },
+        related: async (parent, args, context, info) => {
+            const categoryIDs = parent.category
+            const posts = await Post.find({})
+            let relatedPosts = [];
+            categoryIDs.forEach(id => {
+                posts.forEach(post => {
+                    if (post.category.includes(id)) {
+                        relatedPosts.push(post)
+                    }
+                })
+            })
+            return relatedPosts
+        }
     }
 }

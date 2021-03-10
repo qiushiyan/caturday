@@ -9,6 +9,10 @@ export default {
         signIn: authMutation.signIn,
         updateProfile: userMutation.updateProfile,
         createPost: postMutation.createPost,
-        createCategory: categoryMutation.createCategory
+        updatePost: postMutation.updatePost,
+        deletePost: postMutation.deletePost,
+        createCategory: categoryMutation.createCategory,
+        updateCategory: categoryMutation.updateCategory,
+        deleteCategory: categoryMutation.deleteCategory
     }
 }
