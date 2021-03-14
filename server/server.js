@@ -37,6 +37,10 @@ mongoose.connect(`mongodb+srv://qiushi:${process.env.MONGO_PASSWORD}@cluster0.rz
     useCreateIndex: true
 }).then(() => console.log("--- mongodb connected ---")).catch(err => console.log(err))
 
+app.get("/", (_, res) => {
+    res.send("caturday backend built with express and apollo graphql server")
+})
+
 app.listen(PORT, () => {
     console.log(`--- server started on PORT ${PORT} ---`)
 })
