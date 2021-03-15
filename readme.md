@@ -1,4 +1,6 @@
-Caturday is a minimal fullstack project generating cat cards each day
+Caturday is a minimal fullstack project generating cat cards each day. 
+
+It is built with 
 
 - frontend: React (vite, react hooks, redux toolkit)
 
