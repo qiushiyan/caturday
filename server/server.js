@@ -16,9 +16,11 @@ const PORT = process.env.PORT || 8000
 
 const app = express()
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: '*',
     credentials: true
 }
+app.use(cors(corsOptions))
+
 const apolloServer = new ApolloServer({
     typeDefs,
     resolvers: {
@@ -33,9 +35,14 @@ const apolloServer = new ApolloServer({
         return { req }
     }
 })
+apolloServer.applyMiddleware({ app, cors: corsOptions })
 
-apolloServer.applyMiddleware({ app, cors: true })
-app.use(cors(corsOptions))
+app.get("/", (_, res) => {
+    res.send("caturday backend, source at https://github.com/enixam/caturday/blob/master/server/server.js")
+})
+app.listen(PORT, () => {
+    console.log(`--- server started on PORT ${PORT} ---`)
+})
 
 mongoose.connect(`mongodb+srv://qiushi:${process.env.MONGO_PASSWORD}@cluster0.rzp3d.mongodb.net/graphql-react-course?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
@@ -44,9 +51,3 @@ mongoose.connect(`mongodb+srv://qiushi:${process.env.MONGO_PASSWORD}@cluster0.rz
     useCreateIndex: true
 }).then(() => console.log("--- mongodb connected ---")).catch(err => console.log(err))
 
-app.get("/", (_, res) => {
-    res.send("caturday backend built with express and apollo graphql server")
-})
-app.listen(PORT, () => {
-    console.log(`--- server started on PORT ${PORT} ---`)
-})
