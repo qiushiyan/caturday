@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+import cors from "cors"
 // graphql imports
 import { ApolloServer } from "apollo-server-express"
 import typeDefs from "./graphql/schema"
@@ -11,8 +12,13 @@ import PostResolvers from "./graphql/resolvers/post"
 import CategoryResolvers from "./graphql/resolvers/category"
 
 dotenv.config()
-const app = express()
 const PORT = process.env.PORT || 8000
+
+const app = express()
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true
+}
 const apolloServer = new ApolloServer({
     typeDefs,
     resolvers: {
@@ -28,7 +34,8 @@ const apolloServer = new ApolloServer({
     }
 })
 
-apolloServer.applyMiddleware({ app })
+apolloServer.applyMiddleware({ app, cors: true })
+app.use(cors(corsOptions))
 
 mongoose.connect(`mongodb+srv://qiushi:${process.env.MONGO_PASSWORD}@cluster0.rzp3d.mongodb.net/graphql-react-course?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
@@ -40,7 +47,6 @@ mongoose.connect(`mongodb+srv://qiushi:${process.env.MONGO_PASSWORD}@cluster0.rz
 app.get("/", (_, res) => {
     res.send("caturday backend built with express and apollo graphql server")
 })
-
 app.listen(PORT, () => {
     console.log(`--- server started on PORT ${PORT} ---`)
 })
