@@ -1,22 +1,18 @@
 import React, { useEffect } from "react";
-import axios from "axios";
-
-axios.defaults.method = "POST";
-axios.defaults.headers.post["Content-Type"] = "application/json";
+import axiosConfig from "./axiosConfig";
 
 const App = () => {
   const fetchCats = async () => {
-    const response = await axios({
-      url: "https://caturday-backend.herokuapp.com/graphql",
-      method: "POST",
+    const response = await axiosConfig({
+      url: "/graphql",
       data: {
         query: `
-          query {
-            getAllPosts {
-              title
+            query {
+              getAllPosts {
+                title
+              }
             }
-          }
-        `,
+          `,
       },
     });
     return response.data;
